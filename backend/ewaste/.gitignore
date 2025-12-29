@@ -1,0 +1,49 @@
+# --- SECRETS & ENVIRONMENT VARIABLES (CRITICAL) ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+backend/ewaste/src/main/resources/application-dev.properties
+backend/ewaste/src/main/resources/application-prod.properties
+
+# --- Node.js / Frontend ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+.eslintcache
+
+# --- Java / Spring Boot ---
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+bin/
+out/
+
+# --- IDEs & Editors ---
+# IntelliJ IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+
+# Eclipse / STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# VS Code
+.vscode/
+
+# --- OS Files ---
+.DS_Store
+Thumbs.db
