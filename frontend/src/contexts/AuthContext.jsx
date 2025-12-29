@@ -3,8 +3,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
-// Ensure this matches your backend URL
-axios.defaults.baseURL = 'http://localhost:8080'; 
+
+// --- CHANGE HERE: Dynamic URL Configuration ---
+// This allows Vercel to inject your Render Backend URL
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+axios.defaults.baseURL = API_URL; 
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -23,7 +26,6 @@ export const AuthProvider = ({ children }) => {
       const userData = localStorage.getItem('user');
       
       if (token && userData) {
-        // Set the token globally for all axios requests
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         try {
           setUser(JSON.parse(userData));
@@ -33,7 +35,7 @@ export const AuthProvider = ({ children }) => {
           localStorage.removeItem('user');
         }
       }
-      setLoading(false); // Auth check finished
+      setLoading(false);
     };
 
     initAuth();
@@ -48,7 +50,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('token', accessToken);
         localStorage.setItem('user', JSON.stringify(user));
         
-        // Set header immediately for subsequent requests
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         
         setUser(user);
@@ -88,7 +89,6 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {/* FIX: This check prevents the app from rendering before the token is set */}
       {!loading && children}
     </AuthContext.Provider>
   );
