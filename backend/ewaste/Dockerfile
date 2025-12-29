@@ -5,7 +5,8 @@ COPY . .
 RUN ./gradlew clean build -x test --no-daemon
 
 # Stage 2: Run the application
-FROM openjdk:17-jdk-alpine
+# CHANGED: Use eclipse-temurin instead of openjdk
+FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 COPY --from=build /app/build/libs/*.jar app.jar
 EXPOSE 8080
